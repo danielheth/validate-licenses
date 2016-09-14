@@ -27,9 +27,8 @@ module.exports = function(grunt) {
     });
 
     //1. generate licenses report based on project
-
     var data = {},
-        outputReport = this.out !== undefined ? this.out : '.licenses.json',
+        outputReport = (this.target === 'data' && this.data !== undefined) ? this.data : '.licenses.json',
         execOptions = {},
         stdout = true,
         stderr = true,
@@ -40,12 +39,12 @@ module.exports = function(grunt) {
                   ' --production' +  //only show production dependencies.
                   ' --json ' +  //output in json format.
                   ' --out ' + outputReport,
-        childProcesses,
+        childProcess,
         args = [].slice.call(arguments, 0),
         done = this.async();
 
-    data.cwd && (execOptions.cwd = data.cwd);
-    data.maxBuffer && (execOptions.maxBuffer = data.maxBuffer);
+    data.cwd = execOptions.cwd;
+    data.maxBuffer = execOptions.maxBuffer;
 
     if (_.isFunction(command)) {
       command = command.apply(grunt, args);
