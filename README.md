@@ -28,56 +28,98 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
+    out: // name and path to report.json
+  }
 });
 ```
 
 ### Options
 
-#### options.separator
+#### options.blacklist
+Type: `Array`
+Default value: `[]`
+
+An array regexs that specifies a list of unacceptable or unapproved licenses.
+
+```js
+options: {
+  blacklist: ['bad-license-name', 'regex-of-partial-bad-license-name']
+}
+```
+
+#### options.whitelist
+Type: `Object`
+Default value: `[]`
+
+An object listing all of the approved licenses which may appear on the blacklisted report.
+
+```js
+options: {
+  whitelist: {
+    "module@version": {
+        "approvedby": "approvers name",
+        "approvedon": "date of approval",
+        "comment": "reason for approval"
+    }
+  }
+}
+```
+
+#### out
 Type: `String`
-Default value: `',  '`
+Default value: `[]`
 
-A string value that is used to do something with whatever.
+A string containing the path of where we will output the json results file.  If not specified, then no report is saved.
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+```js
+out: 'path/to/save/output.json'
+```
 
-A string value that is used to do something else with whatever else.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, the default options are used to generate a json report of all production licenses for your project.
 
 ```js
 grunt.initConfig({
   validate_licenses: {
     options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    out: 'build/licenses.json'
+  }
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+In this example, custom options are used to specify that all GPL related licenses are bad.
 
 ```js
 grunt.initConfig({
   validate_licenses: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      blacklist: [ '.*GPL.*' ]
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    out: 'build/licenses.json'
+  },
+});
+```
+
+In this example, custom options are used to specify that all GPL related licenses are bad, yet xmldom@0.1.22 has been approved for release.
+
+```js
+grunt.initConfig({
+  validate_licenses: {
+    options: {
+      blacklist: [ '.*GPL.*' ],
+      whitelist: {
+        "xmldom@0.1.22": {
+          "approvedby": "Daniel Moran",
+          "approvedon": "2016-09-14",
+          "comment": "Module allows you to choose between MIT or LGPL."
+        }
+      }
     },
+    out: 'build/licenses.json'
   },
 });
 ```
@@ -86,4 +128,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+* 2016-09-14 v0.1.0 Release validate licenses from helper Run on Grunt v0.4
