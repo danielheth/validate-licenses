@@ -1,6 +1,6 @@
 /*
- * grunt-validate-licenses
- * https://github.com/daniel.moran/validate-licenses
+ * validate-licenses
+ * https://github.com/danielheth/validate-licenses
  *
  * Copyright (c) 2016 Daniel Moran
  * Licensed under the MIT license.
