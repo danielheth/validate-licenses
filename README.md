@@ -68,8 +68,9 @@ options: {
 #### out
 Type: `String`
 Default value: `[]`
+Required: true
 
-A string containing the path of where we will output the json results file.  If not specified, then no report is saved.
+A string containing the path of where we will output the json results file.
 
 ```js
 out: 'path/to/save/output.json'
@@ -100,7 +101,7 @@ grunt.initConfig({
       blacklist: [ '.*GPL.*' ]
     },
     out: 'build/licenses.json'
-  },
+  }
 });
 ```
 
@@ -120,7 +121,7 @@ grunt.initConfig({
       }
     },
     out: 'build/licenses.json'
-  },
+  }
 });
 ```
 
