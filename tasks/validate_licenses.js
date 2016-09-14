@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 
     //1. generate licenses report based on project
     var data = {},
-        outputReport = (this.target === 'data' && this.data !== undefined) ? this.data : '.licenses.json',
+        outputReport = (this.target === 'out' && this.data !== undefined) ? this.data : '.licenses.json',
         execOptions = {},
         stdout = true,
         stderr = true,
