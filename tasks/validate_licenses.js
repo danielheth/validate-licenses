@@ -9,11 +9,11 @@
 'use strict';
 
 module.exports = function(grunt) {
-  var cp = require('child_process')
-    , f = require('util').format
-    , _ = grunt.util._
-    , log = grunt.log
-    , verbose = grunt.verbose;
+  var cp = require('child_process'),
+    f = require('util').format,
+    _ = grunt.util._,
+    log = grunt.log,
+    verbose = grunt.verbose;
 
 
   // Please see the Grunt documentation for more information regarding task
@@ -32,7 +32,6 @@ module.exports = function(grunt) {
         execOptions = {},
         stdout = true,
         stderr = true,
-        stdin = false,
         callback = function() {},
         exitCodes = [0],
         command = '"node_modules/.bin/license-checker.cmd"' +
@@ -52,17 +51,11 @@ module.exports = function(grunt) {
 
     childProcess = cp.exec(command, execOptions, callback.bind(grunt));
 
-    stdout && childProcess.stdout.on('data', function (d) { log.write(d); });
-    stderr && childProcess.stderr.on('data', function (d) { log.error(d); });
-
-    // redirect stdin to childProcess
-    if(stdin){
-      process.stdin.on('readable', function() {
-        var chunk = process.stdin.read();
-        if (chunk !== null) {
-          childProcess.stdin.write(chunk);
-        }
-      });
+    if (stdout) {
+      childProcess.stdout.on('data', function (d) { log.write(d); });
+    }
+    if (stderr) {
+      childProcess.stderr.on('data', function (d) { log.error(d); });
     }
 
     // Catches failing to execute the command at all (eg spawn ENOENT),
