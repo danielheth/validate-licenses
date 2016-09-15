@@ -27,7 +27,17 @@ module.exports = function(grunt) {
       whitelist: {}
     });
 
-    var binPath = path.resolve(__dirname + '../../../.bin/');
+    var cmdPath = null;
+    var binPath = path.resolve(__dirname + '../../.bin');
+    if (!grunt.file.exist(binPath, '/.license-checker.cmd')) {
+      binPath = path.resolve(__dirname + '../node_modules/.bin');
+      if (!grunt.file.exist(binPath, '/.license-checker.cmd')) {
+        log.error('Unable to find license-checker.cmd');
+        return done(false);
+      }
+    }
+
+    var localPath = path.resolve(__dirname + '../node_modules/.bin/');
 
     //1. generate licenses report based on project
     var data = {},
