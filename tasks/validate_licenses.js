@@ -13,6 +13,7 @@ module.exports = function(grunt) {
     f = require('util').format,
     _ = grunt.util._,
     log = grunt.log,
+    path = require('path'),
     verbose = grunt.verbose;
 
 
@@ -26,6 +27,8 @@ module.exports = function(grunt) {
       whitelist: {}
     });
 
+    var binPath = path.resolve(__dirname + '../../../.bin/');
+
     //1. generate licenses report based on project
     var data = {},
         outputReport = (this.target === 'out' && this.data !== undefined) ? this.data : '.licenses.json',
@@ -34,7 +37,7 @@ module.exports = function(grunt) {
         stderr = true,
         callback = function() {},
         exitCodes = [0],
-        command = '"node_modules/.bin/license-checker.cmd"' +
+        command = '"' + binPath + '/license-checker.cmd"' +
                   ' --production' +  //only show production dependencies.
                   ' --json ' +  //output in json format.
                   ' --out ' + outputReport,
