@@ -29,9 +29,9 @@ module.exports = function(grunt) {
 
     var cmdPath = null;
     var binPath = path.resolve(__dirname + '../../.bin');
-    if (!grunt.file.exist(binPath, '/.license-checker.cmd')) {
+    if (!grunt.file.exists(binPath, '/.license-checker.cmd')) {
       binPath = path.resolve(__dirname + '../node_modules/.bin');
-      if (!grunt.file.exist(binPath, '/.license-checker.cmd')) {
+      if (!grunt.file.exists(binPath, '/.license-checker.cmd')) {
         log.error('Unable to find license-checker.cmd');
         return done(false);
       }
