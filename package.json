@@ -1,7 +1,7 @@
 {
   "name": "validate-licenses",
   "description": "Validate licenses of npm modules and fail builds if unapproved licenses exist.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/danielheth/validate-licenses",
   "author": {
     "name": "Daniel Moran",

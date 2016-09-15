@@ -129,4 +129,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2016-09-15 v0.1.1 Fixing pathing to license-checker sub-module
 * 2016-09-14 v0.1.0 Release validate licenses from helper Run on Grunt v0.4
