@@ -27,6 +27,18 @@ module.exports = function(grunt) {
       whitelist: {}
     });
 
+    var cmdPath = null;
+    var binPath = path.resolve(__dirname + '/../../.bin');
+    log.ok('binPath=' + binPath);
+    if (!grunt.file.exists(binPath, '/.license-checker.cmd')) {
+      binPath = path.resolve(__dirname + '/../node_modules/.bin');
+      log.ok('binPath=' + binPath);
+      if (!grunt.file.exists(binPath, '/.license-checker.cmd')) {
+        log.error('Unable to find license-checker.cmd');
+        return done(false);
+      }
+    }
+
     //1. generate licenses report based on project
     var data = {},
         outputReport = (this.target === 'out' && this.data !== undefined) ? this.data : '.licenses.json',
@@ -35,7 +47,7 @@ module.exports = function(grunt) {
         stderr = true,
         callback = function() {},
         exitCodes = [0],
-        command = '"../node_modules/.bin/license-checker.cmd"' +
+        command = '"' + binPath + '/license-checker.cmd"' +
                   ' --production' +  //only show production dependencies.
                   ' --json ' +  //output in json format.
                   ' --out ' + outputReport,
